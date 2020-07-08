@@ -1,5 +1,5 @@
 #Universal Flags
-flags="-m 4G -d int,cpu_reset"
+flags="-m 4G"
 DEBUG=0
 
 #If you use the 'debug' flag while running, qemu will wait for GDB
@@ -14,7 +14,8 @@ fi
 if [[ $(uname -r | sed -n 's/.*\( *Microsoft *\).*/\1/p') = Microsoft ]]; then
     qemu-system-x86_64.exe -pflash bios.bin -hda fat:build -net none $flags &
 else
-	qemu-system-x86_64 -enable-kvm -pflash bios.bin -hda fat:build -net none $flags &
+	  #qemu-system-x86_64 -enable-kvm -pflash bios.bin -hda fat:build -net none $flags &
+	  qemu-system-x86_64 -pflash bios.bin -hda fat:rw:build -net none $flags &
 fi
 
 if [[ $DEBUG -eq 1 ]]; then
